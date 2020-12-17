@@ -1,6 +1,6 @@
 # Import the pygame library and initialise the game engine
 import pygame
-from fighter import Doomguy
+from player import Player
 from bullet import Bullet
  
 pygame.init()
@@ -14,17 +14,21 @@ size = (700, 500)
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("shoot 'em up")
  
-player = Player(WHITE, 10, 100)
+player1 = Player(WHITE, 10, 100)
+player2 = Player(WHITE, 10, 100)
 
+bullet = Bullet(WHITE,10,10)
+bullet.rect.x = 350
+bullet.rect.y = 250
 
  
 #This will be a list that will contain all the sprites we intend to use in our game.
 all_sprites_list = pygame.sprite.Group()
  
 # Add the paddles and the ball to the list of objects
-all_sprites_list.add(paddleA)
-all_sprites_list.add(paddleB)
-all_sprites_list.add(ball)
+all_sprites_list.add(player1)
+all_sprites_list.add(player2)
+all_sprites_list.add(bullet)
  
 # The loop will carry on until the user exit the game (e.g. clicks the close button).
 carryOn = True
@@ -44,18 +48,31 @@ while carryOn:
  
     #Moving the paddles when the use uses the arrow keys (player A) or "W/S" keys (player B) 
     keys = pygame.key.get_pressed()
+
+    #player 1
     if keys[pygame.K_w]:
-        paddleA.moveUp(5)
+        player1.moveUp(5)
     if keys[pygame.K_s]:
-        paddleA.moveDown(5)
+        player1.moveDown(5)
+    if keys[pygame.K_d]:
+        player1.moveRight(5)
+    if keys[pygame.K_a]:
+        player1.moveLeft(5)
+
     if keys[pygame.K_UP]:
-        paddleB.moveUp(5)
+        player2.moveUp(5)
     if keys[pygame.K_DOWN]:
-        paddleB.moveDown(5)    
+        player2.moveDown(5)    
+    if keys[pygame.K_RIGHT]:
+        player2.moveRight(5)
+    if keys[pygame.K_LEFT]:
+        player2.moveLeft(5)
  
     # --- Game logic should go here
     all_sprites_list.update()
- 
+
+    
+    """
     #Check if the ball is bouncing against any of the 4 walls:
     if ball.rect.x>=690:
         ball.velocity[0] = -ball.velocity[0]
@@ -66,10 +83,10 @@ while carryOn:
     if ball.rect.y<0:
         ball.velocity[1] = -ball.velocity[1] 
  
-   #Detect collisions between the ball and the paddles
-    if pygame.sprite.collide_mask(ball, paddleA) or pygame.sprite.collide_mask(ball, paddleB):
+    #Detect collisions between the ball and the paddles
+    if pygame.sprite.collide_mask(ball, player) or pygame.sprite.collide_mask(ball, player12):
         ball.bounce()
-
+    """
     # --- Drawing code should go here
     # First, clear the screen to black. 
     screen.fill(BLACK)
