@@ -10,17 +10,23 @@ BLACK = (0,0,0)
 WHITE = (255,255,255)
  
 # Open a new window
-size = (700, 500)
+size = (800, 600)
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("shoot 'em up")
  
-player1 = Player(WHITE, 10, 100)
-player2 = Player(WHITE, 10, 100)
+player1 = Player(WHITE, 10, 50)
+player1.rect.x = 20
+player1.rect.y = 200
 
+player2 = Player(WHITE, 15, 50)
+player2.rect.x = 670
+player2.rect.y = 200
+
+"""
 bullet = Bullet(WHITE,10,10)
 bullet.rect.x = 350
 bullet.rect.y = 250
-
+"""
  
 #This will be a list that will contain all the sprites we intend to use in our game.
 all_sprites_list = pygame.sprite.Group()
@@ -28,7 +34,7 @@ all_sprites_list = pygame.sprite.Group()
 # Add the paddles and the ball to the list of objects
 all_sprites_list.add(player1)
 all_sprites_list.add(player2)
-all_sprites_list.add(bullet)
+#all_sprites_list.add(bullet)
  
 # The loop will carry on until the user exit the game (e.g. clicks the close button).
 carryOn = True
